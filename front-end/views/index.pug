@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  header
+    .menu.container
+      nav.navbar.navbar-light.navbar-expand-md
+        a.navbar-brand(href='/', style='color:#f1022a')
+          img(src='/image/logo1.png', alt='', width='100')
+        button.navbar-toggler(style='display: none;' type='button', data-toggle='collapse', data-target='#navbar1')
+          span.navbar-toggler-icon
+        #navbar1.collapse.navbar-collapse
+        span
+          a(href='http://localhost:3001/admin', style='color: #39b54a;font-family: Metro;font-size: 30px') Quản lý trang web
+
+  .container.text-center(style='')
+    b(style="color: #5d3a07;font-family: 'Myriad';font-size: 28px;") CH&Uacute;NG T&Ocirc;I TIN R&#x1EB0;NG N&Ocirc;NG S&#x1EA2;N VI&#x1EC6;T NAM
+    p(style='color: #39b54a;font-family: Metro;font-size: 42px;margin-bottom:0px') &quot;Mang trong m&igrave;nh gi&aacute; tr&#x1ECB; v&ocirc; c&ugrave;ng to l&#x1EDB;n&quot;
+    //- form(action="" method="GET")
+    //-   .container.h-100
+    //-     .d-flex.justify-content-center.h-100
+    //-       .searchbar
+    //-             input.search_input(type='text', name='query', placeholder='Tìm kiếm sản phẩm')
+    //-             a.search_icon(href="")
+    //-                 i.fas.fa-search
+            
+  br
+  .container.text-center
+    .row
+      each vege in listVege
+        .col-md-3
+          .item-img
+            img(src=`${vege.image}`,width='100%')
+          .item-info.text-left
+            a(href='#') #{vege.name}
+            br
+            i #{vege.type}
+            p #{vege.price} VNĐ
+
+   

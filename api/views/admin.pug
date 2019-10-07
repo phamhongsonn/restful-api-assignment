@@ -1,0 +1,75 @@
+extends layout
+
+block content
+  header
+    .menu.container
+      nav.navbar.navbar-light.navbar-expand-md
+        a.navbar-brand(href='http://localhost:3001', style='color:#f1022a')
+          img(src='/image/logo1.png', alt='', width='100')
+        button.navbar-toggler(style='display: none;' type='button', data-toggle='collapse', data-target='#navbar1')
+          span.navbar-toggler-icon
+        #navbar1.collapse.navbar-collapse
+        span
+          a(href='http://localhost:3001', style='color: #39b54a;font-family: Metro;font-size: 30px') Xem trên website
+
+    .container.text-center(style='')
+        b(style="color: #5d3a07;font-family: 'Myriad';font-size: 28px;") CH&Uacute;NG T&Ocirc;I TIN R&#x1EB0;NG N&Ocirc;NG S&#x1EA2;N VI&#x1EC6;T NAM
+        p(style='color: #39b54a;font-family: Metro;font-size: 42px;margin-bottom:0px') &quot;Mang trong m&igrave;nh gi&aacute; tr&#x1ECB; v&ocirc; c&ugrave;ng to l&#x1EDB;n&quot;
+        br
+    .container
+        button.btn.btn-success(data-toggle='modal', data-target='#modalAdd') TH&Ecirc;M M&#x1EDA;I
+        br
+        br
+        div(style='text-align: center;')
+            table.table.table-bordered
+                thead
+                    tr
+                        th(scope='col') T&ecirc;n
+                        th(scope='col') Ph&acirc;n lo&#x1EA1;i
+                        th(scope='col') Gi&aacute;
+                        th(style='width:15%') &#x1EA2;nh
+                        th(scope='col', colspan='2') Thao t&aacute;c
+                tbody
+                        each vege in listVege
+                            tr
+                            td #{vege.name}
+                            td #{vege.type}
+                            td.money #{vege.price}
+                            
+                            td 
+                                img(src=`${vege.image}`,width='100%')
+                            td
+                                a(href=`/delete/${vege._id}`)
+                                    button.btn.btn-danger
+                                        i.fas.fa-trash-alt
+                            td
+                                a(href=`/edit/${vege._id}`)
+                                    button.btn.btn-primary
+                                        i.fas.fa-edit
+    #modalAdd.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalAddLabel', aria-hidden='true')
+        .modal-dialog.modal-lg(role='document')
+            .modal-content
+                .modal-body
+                    .row
+                        .col-md-6.image
+                            img(src='./image/image.jpg', alt='', width='100%')
+                        .col-md-6
+                            button.close(type='button', data-dismiss='modal') &times;
+                            p(style='color: #39b54a;font-family: Metro;font-size: 35px') Th&ecirc;m m&#x1EDB;i s&#x1EA3;n ph&#x1EA9;m
+                            form(action='/add' , method ='POST' , enctype='multipart/form-data', id='form')
+                                .form-group 
+                                    label(for='name') T&ecirc;n s&#x1EA3;n ph&#x1EA9;m
+                                    input.form-control(type='text', name='name', id='name' )
+                                .form-group
+                                    label(for='type') Ph&acirc;n lo&#x1EA1;i s&#x1EA3;n ph&#x1EA9;m
+                                    input.form-control(type='text', name='type', id='type')
+                                .form-group
+                                    label(for='price') Gi&aacute;
+                                    input.form-control(type='text', name='price', id='price' )
+                                .form-group
+                                    label(for='image') &#x1EA2;nh s&#x1EA3;n ph&#x1EA9;m
+                                    input.form-control(type='file', name='image', id='image')
+                                button.btn.btn-success(type='submit') Thêm mới
+    
+
+
