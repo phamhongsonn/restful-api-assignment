@@ -81,15 +81,23 @@ router.get("/:id", function(req, res, next) {
   });
 });
 
-router.put("/:id", upload.single("image"), (function(req, res, next) {
-  product.update({ _id: req.params.id }, req.file ? { ...req.body, image: req.file.path } : {...req.body }, (err, result) => {
+router.put(
+  "/:id",
+  upload.single("image"),
+  wrap(function(req, res, next) {
+    console.log(req.body);
+    product.update(
+      { _id: req.params.id},
+      { ...req.body },
+      (err, result) => {
         if (err) {
           console.log(err);
           return;
         }
-        console.log('edit success');
-        res.redirect('http://localhost:3001/admin');
-      });
+        console.log("edit success");
+        res.send(result);
+      }
+    );
   })
 );
 

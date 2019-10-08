@@ -41,10 +41,10 @@ const wrap = require("../utils/asyncWrapper");
 /* GET home page. */
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function(req, file, cb) {
     cb(null, "./upload");
   },
-  filename: function (req, file, cb) {
+  filename: function(req, file, cb) {
     cb(null, file.originalname);
   }
 });
@@ -55,19 +55,13 @@ const upload = multer({
     fileSize: 1024 * 1024 * 10
   }
 });
-router.post('/', upload.single("image"), (req, res, next) => {
-  let vegeitem = new Product({
-    ...req.body
-  });
-  vegeitem.image = req.file.path;
-  vegeitem.save(err => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log(vegeitem);
-    res.redirect('http://localhost:3001/admin')
-  });
-
-});
+router.post(
+  "/",
+  upload.single("image"),
+  wrap(async (req, res, next) => {
+    console.log(req.body);
+    const data = await Product.create({...req.body });
+    res.send(data);
+  })
+);
 module.exports = router;
